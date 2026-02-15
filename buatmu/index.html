@@ -1,1 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday</title>
 
+<style>
+
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    color:white;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    overflow-y:auto;
+}
+
+.container{
+    width:90%;
+    max-width:500px;
+    text-align:center;
+    padding:40px 20px;
+    position:relative;
+    z-index:1;
+}
+
+img{
+    width:260px;
+    height:260px;
+    border-radius:20px;
+    object-fit:cover;
+    box-shadow:0 0 30px rgba(255,255,255,0.5);
+    margin-bottom:25px;
+}
+
+.text{
+    font-size:18px;
+    line-height:1.7;
+    white-space:pre-line;
+    position:relative;
+
+    background: rgba(255,255,255,0.06);
+    padding:20px;
+    border-radius:20px;
+    backdrop-filter: blur(10px);
+    border:1px solid rgba(255,255,255,0.15);
+}
+
+/* bintang */
+.stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    pointer-events:none;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation:jatuh linear infinite;
+}
+
+@keyframes jatuh{
+    from{ transform:translateY(-10px); opacity:0; }
+    to{ transform:translateY(110vh); opacity:1; }
+}
+
+/* confetti */
+.confetti{
+    position:fixed;
+    width:8px;
+    height:8px;
+    background:white;
+    top:-10px;
+    animation:jatuh2 linear infinite;
+}
+
+@keyframes jatuh2{
+    to{ transform:translateY(120vh); }
+}
+
+</style>
+</head>
+
+<body onclick="mulai()">
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+<img src="foto.jpg">
+
+<div class="text" id="teks"></div>
+
+</div>
+
+<audio id="musik" loop>
+<source src="happybirthday.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+let isiTeks = `Selamat ulang tahun, wak 🎉
+Nggak terasa umurmu makin nambah… walaupun kelakuan kadang masih kayak bocah 😆
+
+Tapi jujur, aku salut sama kau.
+Di balik candaan dan tingkah santaimu, kau itu orang yang pekerja keras dan kuat menghadapi banyak hal.
+
+Terima kasih sudah jadi kawan yang selalu ada,
+yang bisa diajak ketawa bareng, cerita bareng, dan saling dukung tanpa banyak kata.
+
+Semoga semua lelah dan perjuanganmu pelan-pelan berubah jadi kebahagiaan yang kau pantas dapatkan.
+
+Semoga di umur yang baru ini kau selalu diberi kesehatan, rezeki yang lancar, dan hidup yang lebih tenang.
+
+Tetap jadi dirimu yang aku kenal…
+kawan yang kadang kek kimak 🗿 tapi selalu berarti.
+
+— Dari: Arif Lah
+
+geli aku buat gini wak 🗿`;
+
+let i = 0;
+
+function mulai(){
+    document.getElementById("musik").play();
+    ketik();
+    buatConfetti();
+}
+
+function ketik(){
+    if(i < isiTeks.length){
+        document.getElementById("teks").innerHTML += isiTeks.charAt(i);
+        i++;
+        setTimeout(ketik,40);
+        window.scrollTo(0,document.body.scrollHeight);
+    }
+}
+
+/* bintang */
+function buatBintang(){
+    let container = document.getElementById("stars");
+
+    for(let i=0;i<80;i++){
+        let star = document.createElement("div");
+        star.className = "star";
+
+        star.style.left = Math.random()*100 + "vw";
+        star.style.animationDuration = (Math.random()*5+5)+"s";
+
+        container.appendChild(star);
+    }
+}
+
+/* confetti */
+function buatConfetti(){
+    for(let i=0;i<40;i++){
+        let conf = document.createElement("div");
+        conf.className = "confetti";
+        conf.style.left = Math.random()*100 + "vw";
+        conf.style.animationDuration = (Math.random()*3+3)+"s";
+        document.body.appendChild(conf);
+    }
+}
+
+buatBintang();
+
+</script>
+
+</body>
+</html>
